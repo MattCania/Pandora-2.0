@@ -1,10 +1,13 @@
+import Header from "../components/Header"
 
-function LandingPage() {
+export default function LandingPage() {
 
 	return (
-		<h1 className="text-4xl">Hello World</h1>
+		<section>
+			<Header/>
+			<h1 className="text-4xl">Hello World</h1>
+
+		</section>
 	)
 
 }
-
-export default LandingPage
