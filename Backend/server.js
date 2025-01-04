@@ -22,7 +22,7 @@ app.use(
 );
 app.use(
   cors({
-    origin: "http://localhost:5000",
+    origin: "http://localhost:5173",
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
@@ -58,7 +58,7 @@ app.use(
 
 sequelize
   .sync()
-//   .sync({ force: true })
+  // .sync({ force: true })
   // .sync({ alter: true })
   .then(() => {
     console.log("Database synchronized successfully!");
@@ -66,6 +66,16 @@ sequelize
   .catch((error) => {
     console.error("Error synchronizing the database:", error);
   });
+
+// APIs
+
+// Tokens
+const csurfProtection = require('./middlewares/csurfToken')
+app.use('/api', csurfProtection)
+
+// Database Alterations
+const authRoutes = require('./routes/authRoutes')
+app.use('/api', authRoutes)
 
 
 // Localhost PORT

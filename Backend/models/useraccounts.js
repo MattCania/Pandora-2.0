@@ -39,9 +39,6 @@ module.exports = (sequelize, DataTypes) => {
     securedPassword: {
       type: DataTypes.STRING,
       allowNull: false,
-      validate: {
-        len: [8, 15]
-      }
     },
     firstname: {
       type: DataTypes.STRING,
@@ -69,17 +66,6 @@ module.exports = (sequelize, DataTypes) => {
       beforeCreate: async (user) => {
         const salt = await bcrypt.genSalt(10);
         user.securedPassword = await bcrypt.hash(user.securedPassword, salt);
-
-        user.firstName = user.firstName.replace(/\b\w/g, (char) =>
-          char.toUpperCase()
-        );
-        user.lastName = user.lastName.replace(/\b\w/g, (char) =>
-          char.toUpperCase()
-        );
-        if (user.middleName)
-          user.middleName = user.middleName.replace(/\b\w/g, (char) =>
-            char.toUpperCase()
-          );
       },
     }
   });
