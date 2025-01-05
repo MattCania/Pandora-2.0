@@ -1,16 +1,9 @@
 export default async function PutData(uri, data) {
 	try {
-		const tokenResponse = await fetch("/api/csurf-token");
-		if (!tokenResponse.ok) throw new Error("Failed to fetch CSRF token");
-		
-		const tokenData = await tokenResponse.json()
-		const token = tokenData.csrfToken;
-
 		const response = await fetch(`/api/${uri}`, {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
-				"X-CSRF-Token": token
 			},
 			body: JSON.stringify(data),
 			credentials: "include",

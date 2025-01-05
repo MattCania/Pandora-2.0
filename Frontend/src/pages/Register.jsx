@@ -17,41 +17,33 @@ export default function Register() {
 
 	const handleInputChange = (e) => {
 		const { name, value, checked, type } = e.target;
+
+		if (type === 'checkbox') {
+			setIsChecked(checked);
+		} else {
 			setFormValues((prevValues) => ({
 				...prevValues,
 				[name]: value,
 			}));
+		}
 	};
 
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		console.log('Submission Process')
-		console.log('Submission CheckBox')
-		// if (!isChecked) {
-		// 	alert('Please Agree to Terms and Policy');
-		// 	return;
-		// }
-		console.log('Submission FormData')
+		if (!isChecked) {
+			alert('Please agree to the Privacy Policy and Terms of Service.');
+			return;
+		}
 		const formData = { ...formValues }
-		
-		console.log('Submission Posting Data')
-		try {
-			console.log('Submission Response Fetching')
-			const response = await fetch("/api/register", {
-				method: "POST",
-				headers: {
-				  "Content-Type": "application/json",
-				},
-				body: JSON.stringify(formData),
-				credentials: "include",
-			  })
 
-			console.log('Submission Response Validation')
-			if (!response.ok) throw new Error('Register Unsuccessful')
-				
+		try {
+
+			const response = await PostData('register', formData)
+			if (response.length === 0 || !response) throw new Error('Register Unsuccessful')
+
 			console.log('Successful Registration', response)
-			} catch (error) {
+		} catch (error) {
 			console.log('Submission Response Error')
 			console.error(error)
 		}
