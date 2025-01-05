@@ -77,6 +77,21 @@ app.use('/api', csurfProtection)
 const authRoutes = require('./routes/authRoutes')
 app.use('/api', authRoutes)
 
+const mailer = require('./utils/maiiler'); // Ensure the path is correct
+
+app.get('/api/testMail', (req, res) => {
+  mailer.sendOtp()
+    .then((info) => {
+      console.log("Email sent:", info);
+      res.status(200).json({ success: true, message: "Email sent successfully", info });
+    })
+    .catch((error) => {
+      console.error("Error sending email:", error);
+      res.status(500).json({ success: false, message: "Failed to send email", error });
+    });
+});
+
+
 
 // Localhost PORT
 const port = process.env.PORT;

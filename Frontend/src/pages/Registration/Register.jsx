@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import LogoMain from '../assets/MainLogo.svg'
-import PostData from '../hooks/PostData'
+import LogoMain from '../../assets/MainLogo.svg'
+import PostData from '../../hooks/PostData'
 
 export default function Register() {
 	const [formValues, setFormValues] = useState({
@@ -166,7 +166,7 @@ export default function Register() {
 					<input
 						className='cursor-pointer bg-green-500 text-white font-medium h-8 w-48 m-2 rounded-lg transition-all hover:bg-gray-600 '
 						type="submit"
-						value='Register'
+						value='Continue'
 					/>
 				</form >
 			</section>
