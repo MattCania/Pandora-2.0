@@ -9,7 +9,7 @@ export default function Header({ logo, leftNav, middleNav, rightNav }) {
 		<header className="w-full flex justify-between items-center bg-slate-700 px-2">
 
 			<div className='flex w-1/5 justify-center items-center gap-2' >
-				{leftNav.map((item, index) => (
+				{leftNav?.map((item, index) => (
 					<a
 						key={index}
 						className="text-white text-center cursor-pointer h-full w-full font-medium rounded-lg transition-colors hover:bg-white hover:text-black"
@@ -20,27 +20,31 @@ export default function Header({ logo, leftNav, middleNav, rightNav }) {
 				))}
 			</div>
 
-			<a
-				className='md:flex w-1/5 justify-center items-center'
-				href="/pandora"
-			>
-				<img src={LogoMain} alt="" />
-			</a>
 
-			<div
-				className='flex w-1/5 justify-center items-center gap-2'
-			>
+			{logo &&
+				<a
+					className='md:flex w-auto mx-2 my-1 justify-center items-center '
+					href="/pandora"
+				>
+					<img src={LogoMain} alt="" />
+				</a>
+			}
+			{rightNav &&
+				<div
+					className='flex w-1/5 justify-center items-center gap-2'
+				>
 
-				{rightNav.map((item, index) => (
-					<a
-						key={index}
-						className="text-white text-center cursor-pointer h-full w-full font-medium rounded-lg transition-colors hover:bg-white hover:text-black"
-						href={item.links}
-					>
-						{item.items}
-					</a>
-				))}
-			</div>
+					{rightNav?.map((item, index) => (
+						<a
+							key={index}
+							className="text-white text-center cursor-pointer h-full w-full font-medium rounded-lg transition-colors hover:bg-white hover:text-black"
+							href={item.links}
+						>
+							{item.items}
+						</a>
+					))}
+				</div>
+			}
 
 
 		</header>
