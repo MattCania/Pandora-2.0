@@ -4,7 +4,7 @@ import Register from './pages/Registration/Register';
 import Login from './pages/Login';
 import VerifyEmail from './pages/Registration/Verification';
 import Dashboard from './pages/Dashboard';
-import PageRouter from './pages/Router';
+import PageRouter from './pages/PageRouter';
 import Main from './pages/Main';
 
 export default function MainRouter() {

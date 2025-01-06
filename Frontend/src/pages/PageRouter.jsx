@@ -1,14 +1,15 @@
 
 import MainHeader from "../partials/MainHeader"
 import MainAside from "../partials/MainAside"
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate, replace } from 'react-router-dom';
+import Dashboard from "./Dashboard";
 
 export default function PageRouter() {
 
 	return (
 		<Routes>
-			<Route path="" element={<h1>Main HomePage</h1>} />
-			<Route path="dashboard" element={<h1>Dashboard</h1>} />
+			<Route path="" element={<Navigate to='dashboard' replace/>} />
+			<Route path="dashboard" element={<Dashboard/>} />
 			<Route path="records" element={<h1>Records</h1>} />
 			<Route path="inventory" element={<h1>Inventory</h1>} />
 			<Route path="company" element={<h1>Company</h1>} />

@@ -9,23 +9,23 @@ export default function MainAside() {
 
 	const navigation = [
 		{
-			button: isOpen ? 'Dashboard' : <FontAwesomeIcon icon={faHouse} />, link: 'dashboard'
+			button: isOpen ? 'Dashboard' : <FontAwesomeIcon icon={faHouse} />, link: '/dashboard'
 		},
 		{
-			button: isOpen ? 'Records' : <FontAwesomeIcon icon={faFolderOpen} />, link: 'records'
+			button: isOpen ? 'Records' : <FontAwesomeIcon icon={faFolderOpen} />, link: '/records'
 		},
 		{
-			button: isOpen ? 'Inventory' : <FontAwesomeIcon icon={faBox} />, link: 'inventory'
+			button: isOpen ? 'Inventory' : <FontAwesomeIcon icon={faBox} />, link: '/inventory'
 		},
 
 		{
-			button: isOpen ? 'Company' : <FontAwesomeIcon icon={faBuilding} />, link: 'company'
+			button: isOpen ? 'Company' : <FontAwesomeIcon icon={faBuilding} />, link: '/company'
 		},
 		{
-			button: isOpen ? 'Analytics' : <FontAwesomeIcon icon={faChartLine} />, link: 'banking'
+			button: isOpen ? 'Analytics' : <FontAwesomeIcon icon={faChartLine} />, link: '/banking'
 		},
 		{
-			button: isOpen ? 'Banking' : <FontAwesomeIcon icon={faBank} />, link: 'analytics'
+			button: isOpen ? 'Banking' : <FontAwesomeIcon icon={faBank} />, link: '/analytics'
 		},
 
 
@@ -36,29 +36,15 @@ export default function MainAside() {
 		<aside className={`flex flex-col justify-between gap-2 py-8 ${isOpen ? 'w-1/6 p-2' : 'w-12 p-1'}  h-full border bg-slate-200 transition-all`} >
 			<div className='flex flex-col gap-4' >
 				{navigation.map((item, index) => (
-					index % 3 === 0 && index !== 0 ?
-						(
-							<>
-								<hr className='border-gray-400' />
-								<NavLink
-									key={index}
-									to={`/home/${item.link}`}
-									className={({ isActive }) => `flex ${isOpen ? 'justify-start' : 'justify-center'} items-center h-10 p-2 rounded-lg ${isActive ? 'bg-gray-400 text-black' : 'bg-gray-800 text-white'} transition-all font-medium hover:bg-gray-400 hover:text-black`}
-								>
 
-									{item.button}
-								</NavLink>
-							</>
-						)
-						: (
-							<NavLink
-								key={index}
-								to={`/home/${item.link}`}
-								className={({ isActive }) => `flex ${isOpen ? 'justify-start' : 'justify-center'} items-center h-10 p-2 rounded-lg ${isActive ? 'bg-gray-400 text-black' : 'bg-gray-800 text-white'} transition-all font-medium hover:bg-gray-400 hover:text-black`}
-							>
-								{item.button}
-							</NavLink>
-						)
+					<NavLink
+						key={index}
+						to={`/home${item.link}`}
+						className={({ isActive }) => `flex ${isOpen ? 'justify-start' : 'justify-center'} items-center h-10 p-2 rounded-lg ${isActive ? 'bg-gray-400 text-black' : 'bg-gray-800 text-white'} transition-all font-medium hover:bg-gray-400 hover:text-black`}
+					>
+						{item.button}
+					</NavLink>
+
 
 				))}
 			</div>

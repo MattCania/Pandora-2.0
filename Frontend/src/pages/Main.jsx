@@ -2,7 +2,7 @@
 import MainHeader from "../partials/MainHeader"
 import MainAside from "../partials/MainAside"
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import PageRouter from "./Router";
+import PageRouter from "./PageRouter";
 
 
 export default function Main() {
@@ -12,11 +12,13 @@ export default function Main() {
 			className='flex flex-col w-screen h-screen'
 		>
 			<MainHeader />
-			<section className="flex justify-between h-full">
+			<section className="flex justify-between h-full	 w-full overflow-x-hidden">
 				<MainAside />
-				<Routes>
-					<Route path="*" element={<PageRouter />} />
-				</Routes>
+				<section className="flex h-full w-full overflow-hidden ">
+					<Routes>
+						<Route path="*" element={<PageRouter />} />
+					</Routes>
+				</section>
 			</section>
 		</div>
 	)
