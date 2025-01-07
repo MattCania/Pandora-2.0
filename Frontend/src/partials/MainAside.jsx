@@ -36,7 +36,6 @@ export default function MainAside() {
 		<aside className={`flex flex-col justify-between gap-2 py-8 ${isOpen ? 'w-1/6 p-2' : 'w-12 p-1'}  h-full border bg-slate-200 transition-all`} >
 			<div className='flex flex-col gap-4' >
 				{navigation.map((item, index) => (
-
 					<NavLink
 						key={index}
 						to={`/home${item.link}`}
@@ -44,8 +43,6 @@ export default function MainAside() {
 					>
 						{item.button}
 					</NavLink>
-
-
 				))}
 			</div>
 
