@@ -9,12 +9,12 @@ export default function Main() {
 
 	return (
 		<div
-			className='flex flex-col w-screen h-screen'
+			className='flex w-screen h-screen'
 		>
-			<MainHeader />
-			<section className="flex justify-between h-full	w-full overflow-x-hidden">
-				<MainAside />
-				<section className="flex min-h-full h-auto w-5/6 overflow-y-auto ">
+			<MainAside />
+			<section className="flex flex-col justify-between h-full w-full overflow-hidden">
+				<MainHeader />
+				<section className="flex clex-col min-h-full h-auto w-full overflow-y-auto ">
 					<Routes>
 						<Route path="*" element={<PageRouter />} />
 					</Routes>
