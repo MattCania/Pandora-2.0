@@ -1,20 +1,19 @@
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { Routes, Route, Navigate } from 'react-router-dom'
+import { CapturePage, CaptureRouter } from '.'
 import './App.css'
 
 function App() {
 
   return (
-    <div
-      className='h-screen w-screen flex justify-center items-center'
+    <section 
+      className='flex justify-center items-center w-screen h-screen overflow-hidden'
     >
-      <h1
-        className='text-5xl text-blue-500'
-      >
-        Hello
-      </h1>
+      <Routes>
+        <Route path='/' element={<Navigate to='/pandora'/>} />
+        <Route path='/pandora/*' element={<CaptureRouter/>} />
 
-    </div>
+      </Routes>
+    </section>
   )
 }
 
