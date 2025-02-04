@@ -1,17 +1,21 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
+import CaptureHeader from '../../partials/CaptureHeader'
+import CapturePage from './CapturePage'
 
 export default function CaptureRouter() {
 
 	return (
 
-		<section>
+		<section
+			className='flex flex-col justify-start items-center w-screen h-screen overflow-hidden'
+		>
+			<CaptureHeader/>
 
-			{/* Header */}
-
-			{/* Capture Pages */}
-			<div>
+			<div
+				className='flex flex-col justify-center items-center w-full h-auto overflow-x-hidden mt-10'
+			>
 				<Routes>
-					<Route path='' element={<h1>Template</h1>} />
+					<Route path='' element={<CapturePage/>} />
 				</Routes>
 
 			</div>
