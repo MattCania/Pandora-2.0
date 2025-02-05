@@ -12,7 +12,7 @@ export default function CaptureRouter() {
 			<CaptureHeader/>
 
 			<div
-				className='flex flex-col justify-center items-center w-full h-auto overflow-x-hidden mt-10'
+				className='flex flex-col justify-center items-center w-full h-auto overflow-hidden mt-10'
 			>
 				<Routes>
 					<Route path='' element={<CapturePage/>} />
