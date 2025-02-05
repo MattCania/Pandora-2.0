@@ -61,13 +61,13 @@ export default function CaptureHeader() {
         <div className='flex justify-start items-center h-full w-auto gap-2'>
           <Link
             to='/'
-            className='flex justify-center items-center w-32 h-4/5 gap-2 font-medium text-emerald-50 rounded-lg outline-none focus:outline-1 focus:outline-emerald-600 hover:text-emerald-200 hover:bg-emerald-800 transition-all duration-200'
+            className='flex justify-center items-center w-32 h-4/5 gap-2 font-medium text-emerald-50 rounded-lg outline-none focus:outline-1 focus:outline-emerald-600 hover:text-emerald-200 hover:bg-emerald-800 transition-all duration-500'
           >
             Contact Us
           </Link>
           <Link
             to='/pandora/register'
-            className='flex justify-center items-center w-32 h-4/5 gap-2 font-medium text-emerald-50 border rounded-sm border-emerald-600 outline-none focus:outline-1 focus:outline-emerald-950 hover:bg-emerald-950 hover:text-emerald-200 hover:border-emerald-950 transition-all duration-200'
+            className='flex justify-center items-center w-32 h-4/5 gap-2 font-medium text-emerald-50 border rounded-sm border-emerald-950 outline-none bg-emerald-950 focus:outline-1 focus:outline-emerald-600 hover:bg-emerald-200 hover:text-emerald-950 hover:border-emerald-600 transition-all duration-500'
           >
             Try it now
           </Link>
