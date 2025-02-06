@@ -1,6 +1,8 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
 import CaptureHeader from '../../partials/CaptureHeader'
 import CapturePage from './CapturePage'
+import LoginPage from './LoginPage'
+import RegisterPage from './RegisterPage'
 
 export default function CaptureRouter() {
 
@@ -16,6 +18,8 @@ export default function CaptureRouter() {
 			>
 				<Routes>
 					<Route path='' element={<CapturePage/>} />
+					<Route path='login' element={<LoginPage/>} />
+					<Route path='register' element={<RegisterPage/>} />
 				</Routes>
 
 			</div>
