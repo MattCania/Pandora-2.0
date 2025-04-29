@@ -1,16 +1,20 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import { CapturePage, CapturePageRouter } from ".";
 import "./App.css";
-import { Container, createTheme, ThemeProvider } from "@mui/material";
+import { Box, Container, createTheme, ThemeProvider, Typography } from "@mui/material";
 
 function App() {
   const theme = createTheme({
     palette: {
       primary: {
         main: "#1B2536",
+        light: '#889fc3',
+        dark: '090c11'
       },
       secondary: {
         main: "#0F1722",
+        light: '#090c11',
+        dark: '#889fc3'
       },
       background: {
         default: "#1E293B",
@@ -20,29 +24,35 @@ function App() {
         secondary: "#0F1722",
       },
       common: {
-        white: '#FFFFFF',
-        black: '#000000'
-      }
+        white: "#FFFFFF",
+        black: "#000000",
+      },
     },
-    
   });
   return (
     <ThemeProvider theme={theme}>
-      <section
-        style={{background: theme.palette.primary.main, width: '100vw', height: '100vh'}}
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          width: "100vw",
+          minHeight: "100vh",
+          padding: 1,
+          bgcolor: (theme) => theme.palette.primary.main
+        }}
       >
         <Routes>
           <Route
             path='/'
             element={<Navigate to='/pandora' />}
-            />
+          />
           <Route
             path='/pandora/*'
             element={<CapturePageRouter />}
-            />
+          />
         </Routes>
-        
-      </section>
+      </Box>
     </ThemeProvider>
   );
 }

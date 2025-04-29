@@ -3,6 +3,7 @@ import React from "react";
 import { Container, Typography } from "@mui/material";
 import CapturePage from "./CapturePage";
 import CaptureHeader from "../../partials/Headers/CaptureHeader";
+import LoginPage from "./LoginPage";
 
 export default function CaptureRouter() {
   return (
@@ -16,6 +17,10 @@ export default function CaptureRouter() {
           <Route
             path=''
             element={<CapturePage />}
+          />
+          <Route
+            path='/login'
+            element={<LoginPage />}
           />
         </Routes>
       </Container>

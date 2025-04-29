@@ -14,12 +14,14 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { useNavigate } from "react-router-dom";
 
 const pages = ["Products", "Pricing", "Blog"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 export default function CaptureHeader() {
   const [session, setSession] = React.useState(null);
+  const navigate = useNavigate()
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
@@ -73,7 +75,7 @@ export default function CaptureHeader() {
             variant='h6'
             noWrap
             component='a'
-            href='pandora'
+            href='/pandora'
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -95,6 +97,7 @@ export default function CaptureHeader() {
               aria-haspopup='true'
               onClick={handleOpenNavMenu}
               color='inherit'
+              sx={{ mr: 1 }}
             >
               <MenuIcon />
             </IconButton>
@@ -123,26 +126,26 @@ export default function CaptureHeader() {
                 </MenuItem>
               ))}
             </Menu>
+            <Typography
+              variant='h5'
+              noWrap
+              component='a'
+              href='/pandora'
+              sx={{
+                mr: 2,
+                display: { xs: "flex", md: "none" },
+                flexGrow: 1,
+                fontFamily: "monospace",
+                fontWeight: 700,
+                letterSpacing: ".3rem",
+                color: "inherit",
+                textDecoration: "none",
+                alignSelf: 'center'
+              }}
+            >
+              PANDORA
+            </Typography>
           </Box>
-          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
-          <Typography
-            variant='h5'
-            noWrap
-            component='a'
-            href='#app-bar-with-responsive-menu'
-            sx={{
-              mr: 2,
-              display: { xs: "flex", md: "none" },
-              flexGrow: 1,
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            LOGO
-          </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
               <Button
@@ -198,12 +201,25 @@ export default function CaptureHeader() {
           ) : (
             <>
               <Button
-                sx={{ my: 2, mx: 2, color: (theme) => theme.palette.common.white, display: "block" }}
+                sx={{
+                  my: 2,
+                  mx: 2,
+                  color: (theme) => theme.palette.common.white,
+                  display: "block",
+                }}
+                onClick={() => navigate('/pandora/register')}
               >
                 Sign Up
               </Button>
               <Button
-                sx={{ my: 2, mx: 2, color: (theme) => theme.palette.common.black, display: "block", backgroundColor: (theme) => theme.palette.common.white }}
+                sx={{
+                  my: 2,
+                  mx: 2,
+                  color: (theme) => theme.palette.common.black,
+                  display: "block",
+                  backgroundColor: (theme) => theme.palette.common.white,
+                }}
+                onClick={() => navigate('/pandora/login')}
               >
                 Sign In
               </Button>
