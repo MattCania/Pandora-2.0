@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   Container,
+  IconButton,
   Link,
   TextField,
   Typography,
@@ -27,7 +28,7 @@ export default function LoginPage() {
         py: 10,
         p: {
           xs: 4,
-          sm: 10
+          sm: 10,
         },
         display: "flex",
         flexDirection: "column",
@@ -84,7 +85,7 @@ export default function LoginPage() {
 
           "& .MuiOutlinedInput-root": {
             "& fieldset": {
-              borderColor: "common",
+              borderColor: "primary.main",
             },
             "&:hover fieldset": {
               borderColor: "primary.main",
@@ -109,48 +110,75 @@ export default function LoginPage() {
 
       <Box
         component='div'
-      >
-        
-      <TextField
-        id='outlined-basic'
-        label='Password'
-        variant='outlined'
-        type='password'
         sx={{
-          backgroundColor: "primary.main",
-          borderRadius: 1,
+          display: "inline-flex",
+          position: "relative",
           mt: 2,
-          mx: 0,
-          width: {
-            xs: "100%",
-            sm: "300px",
-          },
-
-          "& .MuiOutlinedInput-root": {
-            "& fieldset": {
-              borderColor: "common",
-            },
-            "&:hover fieldset": {
-              borderColor: "primary.main",
-            },
-            "&.Mui-focused fieldset": {
-              borderColor: "secondary.main",
-            },
-          },
-
-          "& .MuiInputBase-input": {
-            color: "common.white",
-          },
-
-          "& label": {
-            color: "common.white",
-          },
-          "& label.Mui-focused": {
-            color: "common.white",
-          },
         }}
-      />
+      >
+        <TextField
+          id='outlined-basic'
+          label='Password'
+          variant='outlined'
+          type={passwordVisibility ? "text" : "password"}
+          sx={{
+            backgroundColor: "primary.main",
+            borderRadius: 1,
+            mx: 0,
+            width: {
+              xs: "100%",
+              sm: "300px",
+            },
 
+            "& .MuiOutlinedInput-root": {
+              "& fieldset": {
+                borderColor: "primary.main",
+              },
+              "&:hover fieldset": {
+                borderColor: "primary.main",
+              },
+              "&.Mui-focused fieldset": {
+                borderColor: "secondary.main",
+              },
+            },
+
+            "& .MuiInputBase-input": {
+              color: "common.white",
+            },
+
+            "& label": {
+              color: "common.white",
+            },
+            "& label.Mui-focused": {
+              color: "common.white",
+            },
+          }}
+        />
+
+        <IconButton
+          onClick={togglePasswordVisibility}
+          aria-label='show password'
+          sx={{
+            position: "absolute",
+            right: 8,
+            top: "50%",
+            transform: "translateY(-50%)",
+          }}
+        >
+          {passwordVisibility ? (
+            <VisibilityOffIcon
+              sx={{
+                color: "common.white",
+              }}
+            />
+          ) : (
+            <VisibilityIcon
+              sx={{
+                color: "common.white",
+              }}
+            />
+          )}
+        </IconButton>
       </Box>
 
       <Button
