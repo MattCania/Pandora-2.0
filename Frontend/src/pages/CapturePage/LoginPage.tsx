@@ -24,7 +24,7 @@ export default function LoginPage() {
       sx={{
         backgroundColor: (theme) => theme.palette.secondary.main,
         my: 4,
-        mt: 8,
+        mt: 4,
         py: 10,
         p: {
           xs: 4,

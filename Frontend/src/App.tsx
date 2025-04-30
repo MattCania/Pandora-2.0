@@ -36,7 +36,6 @@ function App() {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          width: "100vw",
           minHeight: "100vh",
           padding: 1,
           bgcolor: (theme) => theme.palette.primary.main
