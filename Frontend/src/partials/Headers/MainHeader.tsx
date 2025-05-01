@@ -16,10 +16,13 @@ import AdbIcon from "@mui/icons-material/Adb";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useNavigate } from "react-router-dom";
 
-const pages = ["Products", "Pricing", "Blog"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
-export default function CaptureHeader() {
+type MainHeaderProps = {
+  pages: string[];
+};
+
+export default function MainHeader({pages}: MainHeaderProps) {
   const [session, setSession] = React.useState(null);
   const navigate = useNavigate()
 

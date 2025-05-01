@@ -2,6 +2,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { CapturePage, CapturePageRouter } from ".";
 import "./App.css";
 import { Box, Container, createTheme, ThemeProvider, Typography } from "@mui/material";
+import DashboardRouter from "./pages/Dashboard/DashboardRouter";
 
 function App() {
   const theme = createTheme({
@@ -52,7 +53,7 @@ function App() {
           />
           <Route
             path='/dashboard/*'
-            element={<CapturePageRouter />}
+            element={<DashboardRouter />}
           />
         </Routes>
       </Box>

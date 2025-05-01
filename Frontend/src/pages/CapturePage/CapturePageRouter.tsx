@@ -2,14 +2,16 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import React from "react";
 import { Container, Typography } from "@mui/material";
 import CapturePage from "./CapturePage";
-import CaptureHeader from "../../partials/Headers/CaptureHeader";
+import MainHeader from "../../partials/Headers/MainHeader";
 import LoginPage from "./LoginPage";
 import RegisterPage from "./RegisterPage";
+
+const pages = ["Products", "Pricing", "Blog"];
 
 export default function CaptureRouter() {
   return (
     <>
-      <CaptureHeader />
+      <MainHeader pages={pages} />
       <Container
         maxWidth='lg'
         sx={{ 
