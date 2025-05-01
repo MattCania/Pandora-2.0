@@ -12,7 +12,10 @@ export default function CaptureRouter() {
       <CaptureHeader />
       <Container
         maxWidth='lg'
-        sx={{ padding: 0, borderRadius: 0 }}
+        sx={{ 
+          padding: 0, 
+          borderRadius: 0,
+        }}
       >
         <Routes>
           <Route

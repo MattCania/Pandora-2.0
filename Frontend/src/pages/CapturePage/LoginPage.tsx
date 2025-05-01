@@ -192,7 +192,7 @@ export default function LoginPage() {
           width: {
             xs: "100%",
             sm: "300px",
-          },
+          }
         }}
       >
         Sign In

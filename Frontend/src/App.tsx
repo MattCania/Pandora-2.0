@@ -38,7 +38,7 @@ function App() {
           alignItems: 'center',
           minHeight: "100vh",
           padding: 1,
-          bgcolor: (theme) => theme.palette.primary.main
+          backgroundColor: (theme) => theme.palette.primary.main,
         }}
       >
         <Routes>
@@ -48,6 +48,10 @@ function App() {
           />
           <Route
             path='/pandora/*'
+            element={<CapturePageRouter />}
+          />
+          <Route
+            path='/dashboard/*'
             element={<CapturePageRouter />}
           />
         </Routes>

@@ -36,7 +36,7 @@ export default function RegisterPage() {
       sx={{
         backgroundColor: (theme) => theme.palette.secondary.main,
         my: 4,
-        mt: 2,
+        mt: 4,
         p: 0,
         display: "flex",
         alignContent: "center",
@@ -44,7 +44,6 @@ export default function RegisterPage() {
         justifyContent: "center",
         borderRadius: 2,
         transition: "ease-in-out",
-        overflow: "hidden",
       }}
     >
       <Box
