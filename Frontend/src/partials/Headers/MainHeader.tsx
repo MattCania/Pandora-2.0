@@ -14,17 +14,30 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+const settings = [
+  {label: "Profile", path: "/account/profile"}, 
+  {label: "Account", path: "/account"}, 
+  {label: "Dashboard", path: "/dashboard"}, 
+];
 
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+type Page = {
+	label: string;
+	path: string;
+  };
 
 type MainHeaderProps = {
-  pages: string[];
+  pages: Page[];
 };
 
 export default function MainHeader({pages}: MainHeaderProps) {
+  const location = useLocation();
   const [session, setSession] = React.useState(null);
   const navigate = useNavigate()
+
+  const handleNavigate = (path: String) => {
+    navigate(`${path}`)
+  }
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
@@ -118,14 +131,25 @@ export default function MainHeader({pages}: MainHeaderProps) {
               }}
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
-              sx={{ display: { xs: "block", md: "none" } }}
+              sx={{ 
+                display: { 
+                  xs: "block", 
+                  md: "none",
+                }
+              }}
             >
-              {pages.map((page) => (
+              {pages.map((page, index) => (
                 <MenuItem
-                  key={page}
-                  onClick={handleCloseNavMenu}
+                  key={index}
+                  onClick={() => {
+                    handleCloseNavMenu
+                    handleNavigate(page.path)
+                  }}
+                  sx={{
+                    backgroundColor: location.pathname === page.path ? "secondary.dark" : "common.white",
+                  }}
                 >
-                  <Typography sx={{ textAlign: "center" }}>{page}</Typography>
+                  <Typography sx={{ textAlign: "center" }}>{page.label}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -150,13 +174,21 @@ export default function MainHeader({pages}: MainHeaderProps) {
             </Typography>
           </Box>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
+            {pages.map((page, index) => (
               <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
+                key={index}
+                onClick={() => {
+                  handleCloseNavMenu
+                  handleNavigate(page.path)
+                }}
+                sx={{ 
+                  my: 2, 
+                  color: "common.white", 
+                  backgroundColor: location.pathname === page.path ? "secondary.light" : "primary.main",
+                  display: "block" 
+                }}
               >
-                {page}
+                {page.label}
               </Button>
             ))}
           </Box>
@@ -191,14 +223,27 @@ export default function MainHeader({pages}: MainHeaderProps) {
               >
                 {settings.map((setting) => (
                   <MenuItem
-                    key={setting}
-                    onClick={handleCloseUserMenu}
+                    key={setting.label}
+                    sx={{                  
+                      backgroundColor: location.pathname === setting.path ? "secondary.dark" : "common.white",
+                    }}
+                    onClick={() => {
+                      handleCloseUserMenu
+                      handleNavigate(setting.path
+                      )}}
                   >
                     <Typography sx={{ textAlign: "center" }}>
-                      {setting}
+                      {setting.label}
                     </Typography>
                   </MenuItem>
                 ))}
+                <MenuItem
+                    onClick={handleCloseUserMenu}
+                  >
+                    <Typography sx={{ textAlign: "center" }}>
+                      Logout
+                    </Typography>
+                  </MenuItem>
               </Menu>
             </Box>
           ) : (

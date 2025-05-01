@@ -6,7 +6,11 @@ import MainHeader from "../../partials/Headers/MainHeader";
 import LoginPage from "./LoginPage";
 import RegisterPage from "./RegisterPage";
 
-const pages = ["Products", "Pricing", "Blog"];
+const pages: { label: string; path: string }[] = [
+  { label: "Products", path: "/pandora/products" },
+  { label: "Pricing", path: "/pandora/pricing" },
+  { label: "Blog", path: "/pandora/blog" },
+];
 
 export default function CaptureRouter() {
   return (
