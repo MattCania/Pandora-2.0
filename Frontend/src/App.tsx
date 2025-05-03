@@ -21,8 +21,8 @@ function App() {
         default: "#1E293B",
       },
       text: {
-        primary: "#131C29",
-        secondary: "#0F1722",
+        primary: "#FFFFFF",
+        secondary: "#000000",
       },
       common: {
         white: "#FFFFFF",

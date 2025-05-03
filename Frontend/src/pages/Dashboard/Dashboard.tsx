@@ -1,4 +1,5 @@
-import { Box, Container, Typography } from "@mui/material";
+import logo_pandora from "../../assets/logo_pandora.png";
+import { Avatar, Box, Container, IconButton, Tooltip, Typography } from "@mui/material";
 import { BarChart } from "@mui/x-charts/BarChart";
 
 export default function Dashboard() {
@@ -17,22 +18,67 @@ export default function Dashboard() {
     >
       <Container 
       maxWidth='xl'
-      sx={{
-        width: '100%',
-        
-      }}
+          sx={{
+            display: 'flex',
+            justifyContent: 'start',
+            alignItems: 'center',
+            backgroundColor: 'secondary.light',
+            color: 'text.primary',
+            borderRadius: 8,
+            padding: 2
+          }}
       >
+          <Box 
+            component="div"
+            sx={{
+              display: 'flex',
+              mr: {
+                xs: 2,
+                sm: 4,
+                md: 6
+              },
+              borderRadius: "100%",
+              overflow: "hidden",
+              width: {
+                xs: '100px',
+                sm: '150px',
+              },
+              height: {
+                xs: '100px',
+                sm: '150px'
+              }
+            }}
+          >
+            <img
+              src={logo_pandora}
+              alt=''
+            />
+          </Box>
+
         <Typography
           variant="h2"
           sx={{
-            border: '1px solid black'
+            fontSize: {
+              xs: '20px',
+              sm: '30px',
+              lg: '48px'
+            }
           }}
         >
-          Welcome
+          Welcome Matthew Gabriel Cania
         </Typography>
       </Container>
 
-      <Box>
+      <Box
+        component="section"
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          width: '100%',
+          border: '1px solid black'
+        }}
+      >
         <BarChart
           series={[
             { data: [35, 44, 24, 34] },
