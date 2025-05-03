@@ -17,7 +17,7 @@ export default function DashboardRouter() {
     <>
 	  <MainHeader pages={pages}/>
       <Container
-        maxWidth='lg'
+        maxWidth='xl'
         sx={{
           padding: 0,
           borderRadius: 0,
