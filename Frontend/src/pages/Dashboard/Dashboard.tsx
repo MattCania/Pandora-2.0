@@ -89,6 +89,14 @@ export default function Dashboard() {
           height={290}
           xAxis={[{ data: ["Q1", "Q2", "Q3", "Q4"] }]}
         />
+        <Box
+          component="div"
+          sx={{
+            width: '200'
+          }}
+        >
+
+        </Box>
       </Box>
     </Box>
   );
