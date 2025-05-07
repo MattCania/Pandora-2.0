@@ -5,6 +5,7 @@ import {
   Alert,
   AlertTitle,
   Box,
+  Button,
   Container,
   createTheme,
   ThemeProvider,
@@ -16,26 +17,68 @@ import AlertBox from "./components/AlertBox";
 
 const ProtectedRoute = () => {
   const navigate = useNavigate();
-  const token = localStorage.getItem("token");
+  // const token = localStorage.getItem("token");
+  const token = "test"
+  const countdownTimer = 3500;
+  const [countdown, setCountDown] = React.useState(false);
+  const [time, setTime] = React.useState(countdownTimer);
+
+  React.useEffect(() => {
+    if (!token) {
+      setCountDown(true);
+      const timeout = setTimeout(() => {
+        navigate("/");
+      }, countdownTimer);
+
+      return () => clearTimeout(timeout);
+    }
+  }, [token]);
+
+  React.useEffect(() => {
+    if (!countdown) return;
+
+    const interval = setInterval(() => {
+      setTime((prevTime) => {
+        const newTime = prevTime - 1000;
+        if (newTime <= 0) {
+          clearInterval(interval);
+          return 0;
+        }
+        return newTime;
+      });
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [countdown]);
 
   return token ? (
     <Outlet />
   ) : (
     <Box
       component='div'
-      sx={{ 
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: "50%", 
-        height: "90vh" 
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        width: {
+          xs: "100%",
+          sm: "50%",
+        },
+        height: "90vh",
       }}
     >
       <AlertBox
-        type='warning'
+        type='error'
         title='User Not Found'
         text='Please Log In first!'
-        />
+      />
+      <Typography
+        variant='subtitle1'
+        color='text.primary'
+      >
+        Redirecting in {Math.floor(time/1000)}
+      </Typography>
     </Box>
   );
 };

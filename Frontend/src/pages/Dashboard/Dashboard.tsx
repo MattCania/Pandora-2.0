@@ -13,7 +13,6 @@ export default function Dashboard() {
         flexDirection: "column",
         justifyContent: "start",
         alignItems: "center",
-        m: 2,
       }}
     >
       <Container 
@@ -34,18 +33,18 @@ export default function Dashboard() {
               display: 'flex',
               mr: {
                 xs: 2,
-                sm: 4,
-                md: 6
+                sm: 3,
+                md: 4
               },
               borderRadius: "100%",
               overflow: "hidden",
               width: {
-                xs: '100px',
-                sm: '150px',
+                xs: '50px',
+                sm: '100px',
               },
               height: {
-                xs: '100px',
-                sm: '150px'
+                xs: '50px',
+                sm: '100px'
               }
             }}
           >
@@ -59,9 +58,9 @@ export default function Dashboard() {
           variant="h2"
           sx={{
             fontSize: {
-              xs: '20px',
-              sm: '30px',
-              lg: '48px'
+              xs: '24px',
+              sm: '32px',
+              md: '48px'
             }
           }}
         >
