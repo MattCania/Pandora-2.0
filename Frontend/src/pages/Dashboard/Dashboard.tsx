@@ -1,9 +1,19 @@
 import logo_pandora from "../../assets/logo_pandora.png";
-import { Avatar, Box, Container, IconButton, Tooltip, Typography } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Container,
+  Grid,
+  IconButton,
+  Tooltip,
+  Typography,
+  Paper,
+} from "@mui/material";
 import { BarChart } from "@mui/x-charts/BarChart";
 
 export default function Dashboard() {
   return (
+    // Head Container
     <Box
       component='section'
       sx={{
@@ -15,87 +25,94 @@ export default function Dashboard() {
         alignItems: "center",
       }}
     >
-      <Container 
-      maxWidth='xl'
-          sx={{
-            display: 'flex',
-            justifyContent: 'start',
-            alignItems: 'center',
-            backgroundColor: 'secondary.light',
-            color: 'text.primary',
-            borderRadius: 8,
-            padding: 2
-          }}
-      >
-          <Box 
-            component="div"
-            sx={{
-              display: 'flex',
-              mr: {
-                xs: 2,
-                sm: 3,
-                md: 4
-              },
-              borderRadius: "100%",
-              overflow: "hidden",
-              width: {
-                xs: '50px',
-                sm: '100px',
-              },
-              height: {
-                xs: '50px',
-                sm: '100px'
-              }
-            }}
-          >
-            <img
-              src={logo_pandora}
-              alt=''
-            />
-          </Box>
-
-        <Typography
-          variant="h2"
-          sx={{
-            fontSize: {
-              xs: '24px',
-              sm: '32px',
-              md: '48px'
-            }
-          }}
-        >
-          Welcome Matthew Gabriel Cania
-        </Typography>
-      </Container>
-
+      {/* Primary Container */}
       <Box
-        component="section"
+        component='section'
         sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          width: '100%',
-          border: '1px solid black'
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "center",
+          alignItems: "center",
+          width: "100%",
         }}
       >
-        <BarChart
-          series={[
-            { data: [35, 44, 24, 34] },
-            { data: [51, 6, 49, 30] },
-            { data: [15, 25, 30, 50] },
-            { data: [60, 50, 15, 25] },
-          ]}
-          height={290}
-          xAxis={[{ data: ["Q1", "Q2", "Q3", "Q4"] }]}
-        />
+        {/* Row 1 */}
         <Box
-          component="div"
+          flexGrow={1}
           sx={{
-            width: '200'
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
           }}
         >
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            {/* Row 1.1 */}
+            <Box
+              component="div"
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+            >
+              
+            </Box>
+            {/* Row 1.2 */}
+            <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+            >
 
+
+            </Box>
+          </Box>
         </Box>
+
+          {/* Row 2 */}
+        <Box flexGrow={1}>
+
+        <BarChart
+              series={[
+                { data: [35, 44, 24, 34] },
+                { data: [51, 6, 49, 30] },
+                { data: [15, 25, 30, 50] },
+                { data: [60, 50, 15, 25] },
+              ]}
+              height={290}
+              xAxis={[{ data: ["Q1", "Q2", "Q3", "Q4"] }]}
+              />
+        </Box>
+      </Box>
+
+      {/* Secondary Container */}
+      <Box
+        component='section'
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          width: "100%",
+        }}
+      >
+        <Box
+          component='div'
+          sx={{
+            width: "200",
+          }}
+        >Hello</Box>
       </Box>
     </Box>
   );
