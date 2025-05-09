@@ -13,12 +13,13 @@ import {
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import dayjs, { Dayjs } from 'dayjs';
 import React, { useState } from "react";
 
 export default function RegisterPage() {
-  const [value, setValue] = React.useState<Date | null>(null);
+  const [value, setValue] = React.useState(dayjs('2022-04-17'));
   const [passwordVisibility, setPasswordVisibility] = React.useState(false);
   const [confirmPasswordVisibility, setConfirmPasswordVisibility] =
     React.useState(false);
@@ -27,6 +28,12 @@ export default function RegisterPage() {
     index == 1
       ? setPasswordVisibility(!passwordVisibility)
       : setConfirmPasswordVisibility(!confirmPasswordVisibility);
+  };
+
+  const handleDateChange = (date: Dayjs | null) => {
+    if (date) {
+      setValue(date);
+    }
   };
 
   return (
@@ -246,11 +253,11 @@ export default function RegisterPage() {
               }}
             />
           </RadioGroup>
-          <LocalizationProvider dateAdapter={AdapterDateFns}>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
               label='Birthday'
               value={value}
-              onChange={(newValue) => setValue(newValue)}
+              onChange={handleDateChange}
               slotProps={{
                 textField: {
                   InputProps: {
@@ -287,6 +294,38 @@ export default function RegisterPage() {
                       "&.Mui-focused fieldset": {
                         borderColor: "secondary.main",
                       },
+                    },
+                  },
+                },
+                popper: {
+                  sx: {
+                    ".MuiPickersCalendarHeader-label": {
+                      color: "common.black",
+                    },
+                    ".MuiPickersCalendarHeader-switchViewButton": {
+                      color: "common.black",
+                    },
+                    ".MuiPickersArrowSwitcher-root button": {
+                      color: "common.black",
+                    },
+                    ".MuiDayCalendar-weekDayLabel": {
+                      color: "common.black",
+                    },
+                    ".MuiPickersDay-root": {
+                      color: "common.black",
+                    },
+                    ".MuiPickersDay-root.Mui-selected": {
+                      color: "common.white",
+                    },
+                    ".Mui-selected": {
+                      backgroundColor: "secondary.main !important",
+                      color: "common.white !important",
+                    },
+                    ".MuiPickersYear-yearButton": {
+                      color: "common.black",
+                    },
+                    ".MuiPickersMonth-monthButton": {
+                      color: "common.black",
                     },
                   },
                 },
