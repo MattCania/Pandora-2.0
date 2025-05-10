@@ -12,7 +12,12 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      userAccounts.hasOne(models.userProfile, {
+        foreignKey: "user_id",
+        as: "profile_uid",
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+      });
     }
   }
   userAccounts.init({
@@ -40,25 +45,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    firstname: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate:{
-        isAlpha: true
-      }
-    },
-    lastname: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate:{
-        isAlpha: true
-      }
-    },
-    middlename: {
-      type: DataTypes.STRING,
-      allowNull: true,
-      defaultValue: null,
-    } 
   }, {
     sequelize,
     modelName: 'userAccounts',

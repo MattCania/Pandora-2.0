@@ -1,17 +1,21 @@
 const bcrypt = require("bcryptjs");
-const { userAccounts } = require("../models");
+const { userAccounts, userProfile } = require("../models");
 
 const register = async (req, res) => {
   const {
-    username,
-    email,
-    password,
     firstname,
     lastname,
     middlename,
-    currency,
-    organization,
+    gender,
+    birthday,
+    age, 
+    address,
+    email,
+    password,
+    confirmPassword
   } = req.body;
+  
+  const username = firstname + lastname
 
   try {
     const userExists = await userAccounts.findOne({ where: { username } });
@@ -19,21 +23,31 @@ const register = async (req, res) => {
     const emailExists = await userAccounts.findOne({ where: { email } });
     if (emailExists) throw new Error("Email already exists");
 
-    if (!password || password.length < 8 || password.length > 15)
-      throw new Error("Invalid password length");
+    // if (!password)
+    //   throw new Error("Invalid password length");
 
-    const registerUser = await userAccounts.create({
+    const registerAccount = await userAccounts.create({
       username,
       email,
       securedPassword: password,
+    });
+
+    if (!registerAccount) throw new Error("Registration failed");
+    
+    const user_id = registerAccount.user_id
+
+    const registerProfile = await userProfile.create({
+      user_id: user_id,
       firstname,
       lastname,
       middlename,
-      currency,
-      organization,
+      gender,
+      birthday,
+      age, 
+      address,
     });
 
-    if (!registerUser) throw new Error("Registration failed");
+    if (!registerProfile) throw new Error("Registration failed");
 
     res.status(200).json({ message: "Successfully registered user" });
   } catch (error) {

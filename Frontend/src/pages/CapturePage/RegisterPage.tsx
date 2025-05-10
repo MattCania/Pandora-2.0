@@ -10,6 +10,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import axios from 'axios'
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -17,23 +18,83 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs, { Dayjs } from 'dayjs';
 import React, { useState } from "react";
+import HTTPRequest from "../../components/HTTPRequests";
+import { useNavigate } from "react-router-dom";
 
 export default function RegisterPage() {
-  const [value, setValue] = React.useState(dayjs('2022-04-17'));
+  const navigate = useNavigate()
+  const [value, setValue] = React.useState(dayjs(Date.now()));
   const [passwordVisibility, setPasswordVisibility] = React.useState(false);
-  const [confirmPasswordVisibility, setConfirmPasswordVisibility] =
-    React.useState(false);
+  const [confirmPasswordVisibility, setConfirmPasswordVisibility] = React.useState(false);
+
+  const [formValues, setFormValues] = React.useState({
+    firstname: "", middlename: "", lastname: "", gender: "",
+    birthday: "", age: 0, address: "", email: "", 
+    password: "", confirmPassword: ""
+  });
+
+  const [errors, setErrors] = React.useState({
+    firstname: false, middlename: false, lastname: false, gender: false,
+    birthday: false, address: false, email: false, 
+    password: false, confirmPassword: false
+  })
+
+  const handleDataChange = (e: any) => {
+    const {name, value} = e.target
+    setFormValues(prevValues => ({
+      ...prevValues,
+      [name]: value,
+    }))
+  }
+
+  const handleDateChange = (date: Dayjs | null) => {
+  if (date) {
+    setValue(date);
+    setFormValues(prevValues => ({
+      ...prevValues,
+      birthday: date.format('MM-DD-YYYY')
+    }));
+  }
+};
+
+  const validate = () => {
+
+    if (formValues.firstname === "" || formValues.lastname === "" || formValues.birthday === "" || formValues.gender === "" || formValues.address === "" || formValues.email === "" || formValues.password === "" || formValues.confirmPassword === "") {
+
+    }
+    if (formValues.password !== formValues.confirmPassword) {
+
+    }
+
+  }
+
+  const handleSubmission = async (e: any) => {
+    e.preventDefault()
+
+    const currentYear = new Date()
+    const birthYear = new Date(formValues.birthday)    
+    formValues.age = Number(currentYear.getFullYear()) - Number(birthYear.getFullYear())
+
+    const formData = formValues
+
+    try {
+      // const result = await HTTPRequest('POST', 'register', formData)
+      console.log(formData)
+      const result = await axios.post('/api/register', formData)
+
+      if (!result) throw new Error("Registration Error")
+      // navigate('/pandora/login')
+    }
+    catch (error){
+      console.error("Error: ", error)
+    }
+
+  }
 
   const togglePasswordVisibility = (index: number) => {
     index == 1
       ? setPasswordVisibility(!passwordVisibility)
       : setConfirmPasswordVisibility(!confirmPasswordVisibility);
-  };
-
-  const handleDateChange = (date: Dayjs | null) => {
-    if (date) {
-      setValue(date);
-    }
   };
 
   return (
@@ -108,9 +169,11 @@ export default function RegisterPage() {
 
           <TextField
             id='outlined-basic'
+            name="firstname" 
             label='First Name'
             variant='outlined'
             type='text'
+            onChange={handleDataChange}
             sx={{
               backgroundColor: "secondary.main",
               borderRadius: 1,
@@ -146,9 +209,11 @@ export default function RegisterPage() {
           />
           <TextField
             id='outlined-basic'
+            name="middlename" 
             label='Middle Name (Optional)'
             variant='outlined'
             type='text'
+            onChange={handleDataChange}
             sx={{
               backgroundColor: "secondary.main",
               borderRadius: 1,
@@ -184,9 +249,11 @@ export default function RegisterPage() {
           />
           <TextField
             id='outlined-basic'
+            name="lastname" 
             label='Last Name'
             variant='outlined'
             type='text'
+            onChange={handleDataChange}
             sx={{
               backgroundColor: "secondary.main",
               borderRadius: 1,
@@ -233,8 +300,10 @@ export default function RegisterPage() {
             Gender
           </FormLabel>
           <RadioGroup
+            name="gender" 
             row
             aria-labelledby='gender-radio'
+            onChange={handleDataChange}
           >
             <FormControlLabel
               value='male'
@@ -255,6 +324,7 @@ export default function RegisterPage() {
           </RadioGroup>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
+              name="birthday" 
               label='Birthday'
               value={value}
               onChange={handleDateChange}
@@ -334,9 +404,11 @@ export default function RegisterPage() {
           </LocalizationProvider>
           <TextField
             id='outlined-basic'
+            name="address" 
             label='Address'
             variant='outlined'
             type='text'
+            onChange={handleDataChange}
             sx={{
               backgroundColor: "secondary.main",
               borderRadius: 1,
@@ -406,9 +478,11 @@ export default function RegisterPage() {
           </Typography>
           <TextField
             id='outlined-basic'
+            name="email" 
             label='Email'
             variant='outlined'
             type='text'
+            onChange={handleDataChange}
             sx={{
               backgroundColor: "secondary.light",
               borderRadius: 1,
@@ -456,9 +530,11 @@ export default function RegisterPage() {
           >
             <TextField
               id='outlined-basic'
+              name="password" 
               label='Password'
               variant='outlined'
               type={passwordVisibility ? "text" : "password"}
+              onChange={handleDataChange}
               sx={{
                 backgroundColor: "secondary.light",
                 borderRadius: 1,
@@ -532,9 +608,11 @@ export default function RegisterPage() {
           >
             <TextField
               id='outlined-basic'
+              name="confirmPassword" 
               label='Confirm Password'
               variant='outlined'
               type={confirmPasswordVisibility ? "text" : "password"}
+              onChange={handleDataChange}
               sx={{
                 backgroundColor: "secondary.light",
                 borderRadius: 1,
@@ -597,6 +675,7 @@ export default function RegisterPage() {
           <Button
             variant='contained'
             type="submit"
+            onClick={handleSubmission}
             sx={{
               backgroundColor: "primary.light",
               color: "text.secondary",

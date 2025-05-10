@@ -22,7 +22,7 @@ app.use(
 );
 app.use(
   cors({
-    origin: "http://localhost:3173",
+    origin: "http://localhost:1137",
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
@@ -77,7 +77,7 @@ app.use('/api', csurfProtection)
 const authRoutes = require('./routes/authRoutes')
 app.use('/api', authRoutes)
 
-const mailer = require('./utils/mailer'); // Ensure the path is correct
+const mailer = require('./utils/mailer');
 
 app.get('/api/testMail', (req, res) => {
   mailer.sendOtp()
