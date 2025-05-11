@@ -11,8 +11,10 @@ import Requests from '../../components/Requests'
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginPage() {
+  const navigate = useNavigate()
   const [passwordVisibility, setPasswordVisibility] = useState(false)
   const [formValues, setFormValues] = React.useState({
     email: "", password: ""
@@ -34,7 +36,7 @@ export default function LoginPage() {
       const result = await Requests('post', 'login', formData)
 
       if (!result) throw new Error("Error Login")
-
+      else navigate('/dashboard')
 
     }
     catch (error){

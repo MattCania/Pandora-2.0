@@ -9,7 +9,6 @@ const SequelizeStore = require("connect-session-sequelize")(session.Store);
 const cors = require("cors");
 const helmet = require("helmet");
 const { sequelize } = require("./models");
-const csurf = require('csurf')
 const cookieParser = require('cookie-parser')
 
 const app = express();

@@ -1,40 +1,52 @@
-import { Routes, Route, Navigate, useNavigate, Outlet } from "react-router-dom";
-import { CapturePage, CapturePageRouter } from ".";
+// App.tsx
+import {
+  Routes,
+  Route,
+  Navigate,
+  useNavigate,
+  Outlet,
+} from "react-router-dom";
+import { CapturePageRouter } from ".";
 import "./App.css";
 import {
-  Alert,
-  AlertTitle,
   Box,
-  Button,
-  Container,
   createTheme,
   ThemeProvider,
   Typography,
 } from "@mui/material";
 import DashboardRouter from "./pages/Dashboard/DashboardRouter";
-import React, { useContext } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import AlertBox from "./components/AlertBox";
+import GetSession from "./utils/Fetch/GetSession";
 
+// --- Session Context Setup ---
+export interface SessionData {
+  userId: number;
+  email: string;
+  username: string;
+}
+
+export const SessionContext = createContext<SessionData | null>(null);
+
+// --- ProtectedRoute Component ---
 const ProtectedRoute = () => {
   const navigate = useNavigate();
-  // const token = localStorage.getItem("token");
-  const token = "test"
   const countdownTimer = 3500;
-  const [countdown, setCountDown] = React.useState(false);
-  const [time, setTime] = React.useState(countdownTimer);
+  const [countdown, setCountDown] = useState(false);
+  const [time, setTime] = useState(countdownTimer);
+  const user = React.useContext(SessionContext) ?? {};
+  const [isAuth, setAuth] = useState(false);
 
-  React.useEffect(() => {
-    if (!token) {
+  useEffect(() => {
+    if (user) {
+      setAuth(true);
+    } else {
+      setAuth(false);
       setCountDown(true);
-      const timeout = setTimeout(() => {
-        navigate("/");
-      }, countdownTimer);
-
-      return () => clearTimeout(timeout);
     }
-  }, [token]);
+  }, [user]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!countdown) return;
 
     const interval = setInterval(() => {
@@ -51,7 +63,13 @@ const ProtectedRoute = () => {
     return () => clearInterval(interval);
   }, [countdown]);
 
-  return token ? (
+  useEffect(() => {
+    if (time <= 0) {
+      navigate("/pandora");
+    }
+  }, [time, navigate]);
+
+  return isAuth ? (
     <Outlet />
   ) : (
     <Box
@@ -77,13 +95,25 @@ const ProtectedRoute = () => {
         variant='subtitle1'
         color='text.primary'
       >
-        Redirecting in {Math.floor(time/1000)}
+        Redirecting in {Math.floor(time / 1000)}
       </Typography>
     </Box>
   );
 };
 
+// --- App Component ---
 function App() {
+  const [user, setUser] = useState<SessionData | null>(null);
+
+  useEffect(() => {
+    const fetchSession = async () => {
+      const session = await GetSession(); // Make sure this returns `SessionData` or null
+      setUser(session);
+    };
+
+    fetchSession();
+  }, []);
+
   const theme = createTheme({
     palette: {
       primary: {
@@ -112,33 +142,26 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          minHeight: "100vh",
-          padding: 1,
-          backgroundColor: (theme) => theme.palette.primary.main,
-        }}
-      >
-        <Routes>
-          <Route
-            path='/'
-            element={<Navigate to='/pandora' />}
-          />
-          <Route
-            path='/pandora/*'
-            element={<CapturePageRouter />}
-          />
-          <Route element={<ProtectedRoute />}>
-            <Route
-              path='/dashboard/*'
-              element={<DashboardRouter />}
-            />
-          </Route>
-        </Routes>
-      </Box>
+      <SessionContext.Provider value={user}>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            minHeight: "100vh",
+            padding: 1,
+            backgroundColor: (theme) => theme.palette.primary.main,
+          }}
+        >
+          <Routes>
+            <Route path='/' element={<Navigate to='/pandora' />} />
+            <Route path='/pandora/*' element={<CapturePageRouter />} />
+            <Route element={<ProtectedRoute />}>
+              <Route path='/dashboard/*' element={<DashboardRouter />} />
+            </Route>
+          </Routes>
+        </Box>
+      </SessionContext.Provider>
     </ThemeProvider>
   );
 }
