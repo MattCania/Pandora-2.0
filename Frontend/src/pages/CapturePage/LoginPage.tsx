@@ -7,12 +7,40 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import Requests from '../../components/Requests'
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import React, { useState } from "react";
 
 export default function LoginPage() {
   const [passwordVisibility, setPasswordVisibility] = useState(false)
+  const [formValues, setFormValues] = React.useState({
+    email: "", password: ""
+  })
+
+  const handleDataChange = (e: any) => {
+    const {name, value} = e.target
+    setFormValues(prevValues => ({
+      ...prevValues,
+      [name] : value,
+    }))
+  }
+
+  const handleSubmission = async (e: any) => {
+    e.preventDefault
+    const formData = formValues
+    console.log(formData)
+    try {
+      const result = await Requests('post', 'login', formData)
+
+      if (!result) throw new Error("Error Login")
+
+
+    }
+    catch (error){
+      console.error("Error: ", error)
+    }
+  }
 
   const togglePasswordVisibility = () => {
     setPasswordVisibility(!passwordVisibility)
@@ -75,6 +103,8 @@ export default function LoginPage() {
         label='Username'
         variant='outlined'
         type='text'
+        name="email"
+        onChange={handleDataChange}
         sx={{
           backgroundColor: "primary.main",
           borderRadius: 1,
@@ -121,6 +151,8 @@ export default function LoginPage() {
           label='Password'
           variant='outlined'
           type={passwordVisibility ? "text" : "password"}
+          name="password"
+          onChange={handleDataChange}
           sx={{
             backgroundColor: "primary.main",
             borderRadius: 1,
@@ -183,6 +215,7 @@ export default function LoginPage() {
 
       <Button
         variant='contained'
+        onClick={handleSubmission}
         sx={{
           backgroundColor: "primary.light",
           color: "text.secondary",

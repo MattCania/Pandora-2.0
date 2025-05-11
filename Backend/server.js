@@ -9,8 +9,11 @@ const SequelizeStore = require("connect-session-sequelize")(session.Store);
 const cors = require("cors");
 const helmet = require("helmet");
 const { sequelize } = require("./models");
+const csurf = require('csurf')
+const cookieParser = require('cookie-parser')
 
 const app = express();
+app.use(cookieParser())
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(compression());

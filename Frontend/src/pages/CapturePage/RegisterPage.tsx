@@ -18,7 +18,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs, { Dayjs } from 'dayjs';
 import React, { useState } from "react";
-import HTTPRequest from "../../components/HTTPRequests";
+import Requests from "../../components/Requests";
 import { useNavigate } from "react-router-dom";
 
 export default function RegisterPage() {
@@ -78,9 +78,7 @@ export default function RegisterPage() {
     const formData = formValues
 
     try {
-      // const result = await HTTPRequest('POST', 'register', formData)
-      console.log(formData)
-      const result = await axios.post('/api/register', formData)
+      const result = await Requests("post", 'register', formData)
 
       if (!result) throw new Error("Registration Error")
       // navigate('/pandora/login')
@@ -104,7 +102,7 @@ export default function RegisterPage() {
       sx={{
         backgroundColor: (theme) => theme.palette.secondary.main,
         my: 4,
-        mt: 4,
+        mt: 2,
         p: 0,
         display: "flex",
         alignContent: "center",
