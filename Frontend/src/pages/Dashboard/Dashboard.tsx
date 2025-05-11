@@ -16,9 +16,18 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import React from "react";
 import { useState } from "react";
+import { SessionContext } from "../../App";
+import { useNavigate } from "react-router-dom";
 
 export default function Dashboard() {
+  const navigate = useNavigate()
+  const user = React.useContext(SessionContext);
   const [value, setValue] = React.useState(dayjs("2022-04-17"));
+
+  if (!user) {
+    navigate('/')
+  }
+
   const handleDateChange = (date: Dayjs | null) => {
     if (date) {
       setValue(date);
@@ -66,7 +75,7 @@ export default function Dashboard() {
             color='common.white'
             sx={{}}
           >
-            Welcome Matthew!
+            Welcome {user?.username}
           </Typography>
 
           <Typography
@@ -83,17 +92,16 @@ export default function Dashboard() {
           sx={{
             display: "flex",
             alignItems: "end",
-            justifyContent: 'end',
+            justifyContent: "end",
             flexDirection: "row",
           }}
         >
           <Typography
-            variant="subtitle1"
-            color="text.primary"
+            variant='subtitle1'
+            color='text.primary'
           >
             5-9-2025
           </Typography>
-          
         </Box>
       </Box>
       {/* Primary Container */}

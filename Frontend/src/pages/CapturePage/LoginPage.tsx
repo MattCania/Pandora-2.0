@@ -35,7 +35,7 @@ export default function LoginPage() {
     try {
       const result = await Requests('post', 'login', formData)
 
-      if (!result) throw new Error("Error Login")
+      if (result.status >= 400) throw new Error("Error Login")
       else navigate('/dashboard')
 
     }

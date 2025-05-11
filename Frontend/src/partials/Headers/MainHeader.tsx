@@ -13,7 +13,9 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
+import Requests from '../../components/Requests'
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { SessionContext } from "../../App";
 import { useLocation, useNavigate } from "react-router-dom";
 const settings = [
   {label: "Profile", path: "/account/profile"}, 
@@ -31,10 +33,10 @@ type MainHeaderProps = {
 };
 
 export default function MainHeader({pages}: MainHeaderProps) {
+  const user = React.useContext(SessionContext)
   const location = useLocation();
-  const [session, setSession] = React.useState(null);
   const navigate = useNavigate()
-
+  
   const handleNavigate = (path: String) => {
     navigate(`${path}`)
   }
@@ -60,6 +62,21 @@ export default function MainHeader({pages}: MainHeaderProps) {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  const handleLogout = async () => {
+    handleCloseNavMenu
+    try {
+      const result = await Requests('post', 'logout', null)
+
+      if (!result) throw new Error("Logout Error")
+        
+      navigate('/pandora/login')
+    }
+    catch (error) {
+      console.error("Error: ", error)
+    }
+
+  }
 
   return (
     <AppBar
@@ -192,7 +209,7 @@ export default function MainHeader({pages}: MainHeaderProps) {
               </Button>
             ))}
           </Box>
-          {session !== null ? (
+          {user !== null ? (
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title='Open settings'>
                 <IconButton
@@ -206,7 +223,12 @@ export default function MainHeader({pages}: MainHeaderProps) {
                 </IconButton>
               </Tooltip>
               <Menu
-                sx={{ mt: "45px" }}
+                sx={{
+                  mt: "45px",
+                  "& .MuiMenu-paper": { 
+                    backgroundColor: "secondary.light", 
+                  }, 
+                 }}
                 id='menu-appbar'
                 anchorEl={anchorElUser}
                 anchorOrigin={{
@@ -220,12 +242,18 @@ export default function MainHeader({pages}: MainHeaderProps) {
                 }}
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
+
               >
                 {settings.map((setting) => (
                   <MenuItem
                     key={setting.label}
                     sx={{                  
-                      backgroundColor: location.pathname === setting.path ? "secondary.dark" : "common.white",
+                      backgroundColor: location.pathname === setting.path ? "primary.light" : "transparent",
+                      color: location.pathname === setting.path ? "text.secondary" : "text.primary",
+                      "&:hover": {
+                        backgroundColor: "primary.main",
+                        color: "white",               
+                      },
                     }}
                     onClick={() => {
                       handleCloseUserMenu
@@ -238,7 +266,7 @@ export default function MainHeader({pages}: MainHeaderProps) {
                   </MenuItem>
                 ))}
                 <MenuItem
-                    onClick={handleCloseUserMenu}
+                    onClick={handleLogout}
                   >
                     <Typography sx={{ textAlign: "center" }}>
                       Logout

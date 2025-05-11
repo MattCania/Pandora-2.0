@@ -1,25 +1,13 @@
 // App.tsx
-import {
-  Routes,
-  Route,
-  Navigate,
-  useNavigate,
-  Outlet,
-} from "react-router-dom";
+import { Routes, Route, Navigate, useNavigate, Outlet } from "react-router-dom";
 import { CapturePageRouter } from ".";
 import "./App.css";
-import {
-  Box,
-  createTheme,
-  ThemeProvider,
-  Typography,
-} from "@mui/material";
+import { Box, createTheme, ThemeProvider, Typography } from "@mui/material";
 import DashboardRouter from "./pages/Dashboard/DashboardRouter";
 import React, { createContext, useEffect, useState } from "react";
 import AlertBox from "./components/AlertBox";
-import GetSession from "./utils/Fetch/GetSession";
+import { GetSession } from "./utils/Fetch/GetSession";
 
-// --- Session Context Setup ---
 export interface SessionData {
   userId: number;
   email: string;
@@ -28,14 +16,21 @@ export interface SessionData {
 
 export const SessionContext = createContext<SessionData | null>(null);
 
-// --- ProtectedRoute Component ---
 const ProtectedRoute = () => {
   const navigate = useNavigate();
   const countdownTimer = 3500;
   const [countdown, setCountDown] = useState(false);
   const [time, setTime] = useState(countdownTimer);
-  const user = React.useContext(SessionContext) ?? {};
+  const [user, setUser] = useState<SessionData | null>(null);
   const [isAuth, setAuth] = useState(false);
+  useEffect(() => {
+    const getSession = async () => {
+      const sessionData = await GetSession();
+      setUser(sessionData);
+    };
+
+    getSession();
+  }, []);
 
   useEffect(() => {
     if (user) {
@@ -101,17 +96,16 @@ const ProtectedRoute = () => {
   );
 };
 
-// --- App Component ---
 function App() {
   const [user, setUser] = useState<SessionData | null>(null);
 
   useEffect(() => {
-    const fetchSession = async () => {
-      const session = await GetSession(); // Make sure this returns `SessionData` or null
-      setUser(session);
+    const getSession = async () => {
+      const sessionData = await GetSession();
+      setUser(sessionData);
     };
 
-    fetchSession();
+    getSession();
   }, []);
 
   const theme = createTheme({
@@ -154,10 +148,19 @@ function App() {
           }}
         >
           <Routes>
-            <Route path='/' element={<Navigate to='/pandora' />} />
-            <Route path='/pandora/*' element={<CapturePageRouter />} />
+            <Route
+              path='/'
+              element={<Navigate to='/pandora' />}
+            />
+            <Route
+              path='/pandora/*'
+              element={<CapturePageRouter />}
+            />
             <Route element={<ProtectedRoute />}>
-              <Route path='/dashboard/*' element={<DashboardRouter />} />
+              <Route
+                path='/dashboard/*'
+                element={<DashboardRouter />}
+              />
             </Route>
           </Routes>
         </Box>
