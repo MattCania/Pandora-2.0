@@ -1,4 +1,3 @@
-// App.tsx
 import { Routes, Route, Navigate, useNavigate, Outlet } from "react-router-dom";
 import { CapturePageRouter } from ".";
 import "./App.css";
@@ -8,6 +7,7 @@ import React, { createContext, useEffect, useState } from "react";
 import AlertBox from "./components/AlertBox";
 import { GetSession } from "./utils/Fetch/GetSession";
 
+// Interface, Sets Shared Session Context
 export interface SessionData {
   userId: number;
   email: string;
@@ -16,32 +16,46 @@ export interface SessionData {
 
 export const SessionContext = createContext<SessionData | null>(null);
 
+// Session Handling
 const ProtectedRoute = () => {
   const navigate = useNavigate();
+  
+  // Countdown Manager
   const countdownTimer = 3500;
   const [countdown, setCountDown] = useState(false);
   const [time, setTime] = useState(countdownTimer);
+
+  // Session Placeholder
   const [user, setUser] = useState<SessionData | null>(null);
   const [isAuth, setAuth] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  // Gets Session, Sets loading and user
   useEffect(() => {
     const getSession = async () => {
       const sessionData = await GetSession();
       setUser(sessionData);
+      setLoading(false);
     };
 
     getSession();
   }, []);
 
   useEffect(() => {
+    // Checks if loading (loading means the session has not been fetched)
+    if (loading) return;
+
     if (user) {
       setAuth(true);
     } else {
       setAuth(false);
       setCountDown(true);
     }
-  }, [user]);
+  }, [user, loading]);
 
+  // If User does not exist, sets the countdown and proceeds to redirect
   useEffect(() => {
+    // Only triggers when countdown is triggered
     if (!countdown) return;
 
     const interval = setInterval(() => {
@@ -58,12 +72,14 @@ const ProtectedRoute = () => {
     return () => clearInterval(interval);
   }, [countdown]);
 
+  // Redirects if time is 0
   useEffect(() => {
     if (time <= 0) {
       navigate("/pandora");
     }
   }, [time, navigate]);
 
+  // Return the Outlet or 404 Prompt
   return isAuth ? (
     <Outlet />
   ) : (
@@ -83,7 +99,7 @@ const ProtectedRoute = () => {
     >
       <AlertBox
         type='error'
-        title='User Not Found'
+        title='404 User Not Found'
         text='Please Log In first!'
       />
       <Typography

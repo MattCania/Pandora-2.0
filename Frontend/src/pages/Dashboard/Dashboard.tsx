@@ -22,17 +22,10 @@ import { useNavigate } from "react-router-dom";
 export default function Dashboard() {
   const navigate = useNavigate()
   const user = React.useContext(SessionContext);
-  const [value, setValue] = React.useState(dayjs("2022-04-17"));
 
   if (!user) {
     navigate('/')
   }
-
-  const handleDateChange = (date: Dayjs | null) => {
-    if (date) {
-      setValue(date);
-    }
-  };
   return (
     // Head Container
     <Box
