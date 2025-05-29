@@ -61,7 +61,7 @@ const login = async (req, res) => {
   try {
     const emailExists = await userAccounts.findOne({ where: { email } });
 
-    if (!emailExists) throw new Error("Incorrect Email");
+    if (!emailExists) throw new Error("Email not found");
 
     const isMatch = await bcrypt.compare(password, emailExists.securedPassword);
 

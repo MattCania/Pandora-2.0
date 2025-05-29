@@ -21,11 +21,12 @@ import { useNavigate } from "react-router-dom";
 
 export default function Dashboard() {
   const navigate = useNavigate()
-  const user = React.useContext(SessionContext);
+  const { user } = React.useContext(SessionContext);
 
   if (!user) {
     navigate('/')
   }
+  
   return (
     // Head Container
     <Box

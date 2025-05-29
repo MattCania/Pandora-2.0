@@ -14,32 +14,39 @@ export interface SessionData {
   username: string;
 }
 
-export const SessionContext = createContext<SessionData | null>(null);
+export type SessionContextType = {
+  user: SessionData | null;
+  setUser: React.Dispatch<React.SetStateAction<SessionData | null>>;
+};
+
+export const SessionContext = createContext<SessionContextType>({
+  user: null,
+  setUser: () => {},
+});
 
 // Session Handling
 const ProtectedRoute = () => {
   const navigate = useNavigate();
-  
+
   // Countdown Manager
   const countdownTimer = 3500;
   const [countdown, setCountDown] = useState(false);
   const [time, setTime] = useState(countdownTimer);
 
   // Session Placeholder
-  const [user, setUser] = useState<SessionData | null>(null);
+  const { user, setUser } = React.useContext(SessionContext);
   const [isAuth, setAuth] = useState(false);
   const [loading, setLoading] = useState(true);
 
   // Gets Session, Sets loading and user
   useEffect(() => {
-    const getSession = async () => {
-      const sessionData = await GetSession();
-      setUser(sessionData);
-      setLoading(false);
-    };
-
-    getSession();
-  }, []);
+      const refetch = async () => {
+        const sessionData = await GetSession();
+        setUser(sessionData);
+        setLoading(false)
+      };
+      refetch();
+  }, [user, setUser]);
 
   useEffect(() => {
     // Checks if loading (loading means the session has not been fetched)
@@ -114,15 +121,21 @@ const ProtectedRoute = () => {
 
 function App() {
   const [user, setUser] = useState<SessionData | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const getSession = async () => {
+    const fetchSession = async () => {
       const sessionData = await GetSession();
       setUser(sessionData);
+      setLoading(false);
     };
 
-    getSession();
+    fetchSession();
   }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   const theme = createTheme({
     palette: {
@@ -152,7 +165,7 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <SessionContext.Provider value={user}>
+      <SessionContext.Provider value={{ user, setUser }}>
         <Box
           sx={{
             display: "flex",

@@ -13,33 +13,33 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
-import Requests from '../../components/Requests'
+import Requests from "../../components/Requests";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { SessionContext } from "../../App";
 import { useLocation, useNavigate } from "react-router-dom";
 const settings = [
-  {label: "Profile", path: "/account/profile"}, 
-  {label: "Account", path: "/account"}, 
-  {label: "Dashboard", path: "/dashboard"}, 
+  { label: "Profile", path: "/account/profile" },
+  { label: "Account", path: "/account" },
+  { label: "Dashboard", path: "/dashboard" },
 ];
 
 type Page = {
-	label: string;
-	path: string;
-  };
+  label: string;
+  path: string;
+};
 
 type MainHeaderProps = {
   pages: Page[];
 };
 
-export default function MainHeader({pages}: MainHeaderProps) {
-  const user = React.useContext(SessionContext)
+export default function MainHeader({ pages }: MainHeaderProps) {
+  const { user, setUser } = React.useContext(SessionContext);
   const location = useLocation();
-  const navigate = useNavigate()
-  
+  const navigate = useNavigate();
+
   const handleNavigate = (path: String) => {
-    navigate(`${path}`)
-  }
+    navigate(`${path}`);
+  };
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
@@ -64,19 +64,18 @@ export default function MainHeader({pages}: MainHeaderProps) {
   };
 
   const handleLogout = async () => {
-    handleCloseNavMenu
+    handleCloseNavMenu;
     try {
-      const result = await Requests('post', 'logout', null)
+      const result = await Requests("post", "logout", null);
 
-      if (!result) throw new Error("Logout Error")
-        
-      navigate('/pandora/login')
-    }
-    catch (error) {
-      console.error("Error: ", error)
-    }
+      if (!result) throw new Error("Logout Error");
 
-  }
+      setUser(null);
+      navigate("/pandora/login");
+    } catch (error) {
+      console.error("Error: ", error);
+    }
+  };
 
   return (
     <AppBar
@@ -148,25 +147,30 @@ export default function MainHeader({pages}: MainHeaderProps) {
               }}
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
-              sx={{ 
-                display: { 
-                  xs: "block", 
+              sx={{
+                display: {
+                  xs: "block",
                   md: "none",
-                }
+                },
               }}
             >
               {pages.map((page, index) => (
                 <MenuItem
                   key={index}
                   onClick={() => {
-                    handleCloseNavMenu
-                    handleNavigate(page.path)
+                    handleCloseNavMenu;
+                    handleNavigate(page.path);
                   }}
                   sx={{
-                    backgroundColor: location.pathname === page.path ? "secondary.dark" : "common.white",
+                    backgroundColor:
+                      location.pathname === page.path
+                        ? "secondary.dark"
+                        : "common.white",
                   }}
                 >
-                  <Typography sx={{ textAlign: "center" }}>{page.label}</Typography>
+                  <Typography sx={{ textAlign: "center" }}>
+                    {page.label}
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -184,7 +188,7 @@ export default function MainHeader({pages}: MainHeaderProps) {
                 letterSpacing: ".3rem",
                 color: "inherit",
                 textDecoration: "none",
-                alignSelf: 'center'
+                alignSelf: "center",
               }}
             >
               PANDORA
@@ -195,14 +199,17 @@ export default function MainHeader({pages}: MainHeaderProps) {
               <Button
                 key={index}
                 onClick={() => {
-                  handleCloseNavMenu
-                  handleNavigate(page.path)
+                  handleCloseNavMenu;
+                  handleNavigate(page.path);
                 }}
-                sx={{ 
-                  my: 2, 
-                  color: "common.white", 
-                  backgroundColor: location.pathname === page.path ? "secondary.light" : "primary.main",
-                  display: "block" 
+                sx={{
+                  my: 2,
+                  color: "common.white",
+                  backgroundColor:
+                    location.pathname === page.path
+                      ? "secondary.light"
+                      : "primary.main",
+                  display: "block",
                 }}
               >
                 {page.label}
@@ -225,10 +232,10 @@ export default function MainHeader({pages}: MainHeaderProps) {
               <Menu
                 sx={{
                   mt: "45px",
-                  "& .MuiMenu-paper": { 
-                    backgroundColor: "secondary.light", 
-                  }, 
-                 }}
+                  "& .MuiMenu-paper": {
+                    backgroundColor: "secondary.light",
+                  },
+                }}
                 id='menu-appbar'
                 anchorEl={anchorElUser}
                 anchorOrigin={{
@@ -242,36 +249,37 @@ export default function MainHeader({pages}: MainHeaderProps) {
                 }}
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
-
               >
                 {settings.map((setting) => (
                   <MenuItem
                     key={setting.label}
-                    sx={{                  
-                      backgroundColor: location.pathname === setting.path ? "primary.light" : "transparent",
-                      color: location.pathname === setting.path ? "text.secondary" : "text.primary",
+                    sx={{
+                      backgroundColor:
+                        location.pathname === setting.path
+                          ? "primary.light"
+                          : "transparent",
+                      color:
+                        location.pathname === setting.path
+                          ? "text.secondary"
+                          : "text.primary",
                       "&:hover": {
                         backgroundColor: "primary.main",
-                        color: "white",               
+                        color: "white",
                       },
                     }}
                     onClick={() => {
-                      handleCloseUserMenu
-                      handleNavigate(setting.path
-                      )}}
+                      handleCloseUserMenu;
+                      handleNavigate(setting.path);
+                    }}
                   >
                     <Typography sx={{ textAlign: "center" }}>
                       {setting.label}
                     </Typography>
                   </MenuItem>
                 ))}
-                <MenuItem
-                    onClick={handleLogout}
-                  >
-                    <Typography sx={{ textAlign: "center" }}>
-                      Logout
-                    </Typography>
-                  </MenuItem>
+                <MenuItem onClick={handleLogout}>
+                  <Typography sx={{ textAlign: "center" }}>Logout</Typography>
+                </MenuItem>
               </Menu>
             </Box>
           ) : (
@@ -283,7 +291,7 @@ export default function MainHeader({pages}: MainHeaderProps) {
                   color: (theme) => theme.palette.common.white,
                   display: "block",
                 }}
-                onClick={() => navigate('/pandora/register')}
+                onClick={() => navigate("/pandora/register")}
               >
                 Sign Up
               </Button>
@@ -295,7 +303,7 @@ export default function MainHeader({pages}: MainHeaderProps) {
                   display: "block",
                   backgroundColor: (theme) => theme.palette.common.white,
                 }}
-                onClick={() => navigate('/pandora/login')}
+                onClick={() => navigate("/pandora/login")}
               >
                 Sign In
               </Button>
