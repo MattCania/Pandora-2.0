@@ -1,26 +1,41 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class userwallet extends Model {
+  class userWallet extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      userWallet.belongsTo(models.userAccounts, {
+				foreignKey: "user_id",
+				targetKey: "user_id",
+				as: "child_uid",
+				onDelete: "CASCADE",
+    		onUpdate: 'CASCADE'
+			});
     }
   }
-  userwallet.init({
-    walletId: DataTypes.INTEGER,
-    accountId: DataTypes.INTEGER,
-    currency: DataTypes.STRING,
-    balance: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'userwallet',
-  });
-  return userwallet;
+  userWallet.init(
+    {
+      wallet_id: {
+        type: DataTypes.INTEGER,
+      },
+      user_id: {
+        type: DataTypes.INTEGER,
+      },
+      currency: {
+        type: DataTypes.STRING,
+      },
+      balance: {
+        type: DataTypes.STRING,
+      },
+    },
+    {
+      sequelize,
+      modelName: "userWallet",
+    }
+  );
+  return userWallet;
 };

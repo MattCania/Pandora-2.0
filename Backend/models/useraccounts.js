@@ -18,6 +18,42 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
       });
+      userAccounts.hasOne(models.userWallet, {
+        foreignKey: "user_id",
+        as: "wallet_uid",
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+      });
+      userAccounts.hasMany(models.inventoryAccounts, {
+        foreignKey: "user_id",
+        as: "inventories_uid",
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+      });
+      userAccounts.hasMany(models.transactionAccounts, {
+        foreignKey: "user_id",
+        as: "transactions_uid",
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+      });
+      userAccounts.hasMany(models.transactionHistory, {
+        foreignKey: "user_id",
+        as: "transactionHistory_uid",
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+      });
+      userAccounts.hasMany(models.transactionRecords, {
+        foreignKey: "user_id",
+        as: "record_uid",
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+      });
+      userAccounts.hasMany(models.inventoryRecords, {
+        foreignKey: "user_id",
+        as: "inventory",
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+      });
     }
   }
   userAccounts.init({
