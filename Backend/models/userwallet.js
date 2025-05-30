@@ -31,6 +31,12 @@ module.exports = (sequelize, DataTypes) => {
       balance: {
         type: DataTypes.STRING,
       },
+      incomePeriod: {
+        type: DataTypes.ENUM['quarterly', 'weekly', 'semi-monthly', 'monthly', 'annually']
+      },
+      incomeAmount: {
+        type: DataTypes.DECIMAL
+      }
     },
     {
       sequelize,
