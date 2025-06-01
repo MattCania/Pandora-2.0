@@ -29,7 +29,8 @@ export default function RegisterPage() {
 
   const [formValues, setFormValues] = React.useState({
     firstname: "", middlename: "", lastname: "", gender: "",
-    birthday: "", age: 0, address: "", email: "", 
+    birthday: "", age: 0, address: "", currency: "",
+    initialBalance: 0, incomePeriod: '', email: "", 
     password: "", confirmPassword: ""
   });
 
@@ -135,8 +136,8 @@ export default function RegisterPage() {
             alignItems: "center",
             backgroundColor: "secondary.light",
             flex: 1,
-            pt: 4,
-            pb: 4,
+            pt: 1,
+            pb: 1,
             px: {
               xs: 8,
               sm: 0,
@@ -152,7 +153,6 @@ export default function RegisterPage() {
             alignSelf='center'
             sx={{
               textAlign: "center",
-              my: 2,
               fontSize: {
                 xs: "2.25rem",
                 sm: "2.75rem",
@@ -439,6 +439,45 @@ export default function RegisterPage() {
                 color: "common.white",
               },
             }}
+          /><TextField
+            id='outlined-basic'
+            name="currency" 
+            label='Currency'
+            variant='outlined'
+            type='text'
+            onChange={handleDataChange}
+            sx={{
+              backgroundColor: "secondary.main",
+              borderRadius: 1,
+              my: 1,
+              width: {
+                xs: "100%",
+                sm: "300px",
+              },
+
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderColor: "primary.main",
+                },
+                "&:hover fieldset": {
+                  borderColor: "primary.main",
+                },
+                "&.Mui-focused fieldset": {
+                  borderColor: "secondary.main",
+                },
+              },
+
+              "& .MuiInputBase-input": {
+                color: "common.white",
+              },
+
+              "& label": {
+                color: "common.white",
+              },
+              "& label.Mui-focused": {
+                color: "common.white",
+              },
+            }}
           />
         </Box>
 
@@ -475,6 +514,84 @@ export default function RegisterPage() {
             We will send you a verification!
           </Typography>
           <TextField
+            id='outlined-basic'
+            name="initialBalance" 
+            label='Initial Balance'
+            variant='outlined'
+            type='text'
+            onChange={handleDataChange}
+            sx={{
+              backgroundColor: "secondary.light",
+              borderRadius: 1,
+              my: 1,
+              width: {
+                xs: "100%",
+                sm: "300px",
+              },
+
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderColor: "primary.main",
+                },
+                "&:hover fieldset": {
+                  borderColor: "primary.main",
+                },
+                "&.Mui-focused fieldset": {
+                  borderColor: "secondary.main",
+                },
+              },
+
+              "& .MuiInputBase-input": {
+                color: "common.white",
+              },
+
+              "& label": {
+                color: "common.white",
+              },
+              "& label.Mui-focused": {
+                color: "common.white",
+              },
+            }}
+          /><TextField
+            id='outlined-basic'
+            name="incomePeriod" 
+            label='Income Period'
+            variant='outlined'
+            type='text'
+            onChange={handleDataChange}
+            sx={{
+              backgroundColor: "secondary.light",
+              borderRadius: 1,
+              my: 1,
+              width: {
+                xs: "100%",
+                sm: "300px",
+              },
+
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderColor: "primary.main",
+                },
+                "&:hover fieldset": {
+                  borderColor: "primary.main",
+                },
+                "&.Mui-focused fieldset": {
+                  borderColor: "secondary.main",
+                },
+              },
+
+              "& .MuiInputBase-input": {
+                color: "common.white",
+              },
+
+              "& label": {
+                color: "common.white",
+              },
+              "& label.Mui-focused": {
+                color: "common.white",
+              },
+            }}
+          /><TextField
             id='outlined-basic'
             name="email" 
             label='Email'

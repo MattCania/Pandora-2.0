@@ -32,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
       },
       incomePeriod: {
-        type: DataTypes.ENUM['quarterly', 'weekly', 'semi-monthly', 'monthly', 'annually']
+        type: DataTypes.ENUM('quarterly', 'weekly', 'semi-monthly', 'monthly', 'annually')
       },
       incomeAmount: {
         type: DataTypes.DECIMAL
