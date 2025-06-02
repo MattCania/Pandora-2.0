@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
       inventoryAccounts.belongsTo(models.inventoryRecords, {
 				foreignKey: "inventory_id",
 				targetKey: "inventory_id",
-				as: "child_invid",
+				as: "child_irid",
 				onDelete: "CASCADE",
     		onUpdate: 'CASCADE'
 			});
@@ -28,6 +28,8 @@ module.exports = (sequelize, DataTypes) => {
     {
       access_id: {
         type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement:true,
       },
       inventory_id: {
         type: DataTypes.INTEGER,

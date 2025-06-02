@@ -15,6 +15,8 @@ module.exports = (sequelize, DataTypes) => {
     {
       access_id: {
         type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement:true,
       },
       transaction_id: {
         type: DataTypes.INTEGER,

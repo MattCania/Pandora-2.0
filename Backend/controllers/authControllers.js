@@ -1,6 +1,5 @@
 const bcrypt = require("bcryptjs");
-const { userAccounts, userProfile } = require("../models");
-const userwallet = require("../models/userwallet");
+const { userAccounts, userProfile, userWallet } = require("../models");
 
 const register = async (req, res) => {
   const {
@@ -54,7 +53,7 @@ const register = async (req, res) => {
 
     if (!registerProfile) throw new Error("Registration failed");
 
-    const registerWallet = await userwallet.create({
+    const registerWallet = await userWallet.create({
       user_id: user_id,
       currency: currency,
       balance: initialBalance,

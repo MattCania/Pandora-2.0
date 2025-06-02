@@ -20,6 +20,8 @@ module.exports = (sequelize, DataTypes) => {
     {
       inventory_id: {
         type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement:true,
       },
       inventoryName: {
         type: DataTypes.STRING,

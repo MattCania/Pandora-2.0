@@ -102,8 +102,6 @@ export default function RegisterPage() {
       disableGutters
       sx={{
         backgroundColor: (theme) => theme.palette.secondary.main,
-        my: 4,
-        mt: 2,
         p: 0,
         display: "flex",
         alignContent: "center",
