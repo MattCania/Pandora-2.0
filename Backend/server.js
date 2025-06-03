@@ -76,8 +76,10 @@ const csurfProtection = require('./middlewares/csurfToken')
 app.use('/api', csurfProtection)
 
 // Database Alterations
+const profileRoutes = require('./routes/profileRoutes')
 const authRoutes = require('./routes/authRoutes')
 app.use('/api', authRoutes)
+app.use('/api', profileRoutes)
 
 const mailer = require('./utils/mailer');
 

@@ -6,6 +6,7 @@ import DashboardRouter from "./pages/Dashboard/DashboardRouter";
 import React, { createContext, useEffect, useState } from "react";
 import AlertBox from "./components/AlertBox";
 import { GetSession } from "./utils/Fetch/GetSession";
+import ProfilePage from "./pages/Profile/Profile"; 
 
 // Interface, Sets Shared Session Context
 export interface SessionData {
@@ -189,6 +190,12 @@ function App() {
               <Route
                 path='/dashboard/*'
                 element={<DashboardRouter />}
+              />
+            </Route>
+            <Route element={<ProtectedRoute />}>
+              <Route
+                path='/account/profile'
+                element={<ProfilePage />}
               />
             </Route>
           </Routes>
