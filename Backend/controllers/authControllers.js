@@ -19,8 +19,11 @@ const register = async (req, res) => {
     incomeAmount
   } = req.body;
   
-  const username = firstname + lastname
+  const spaceIndex = firstname.indexOf(' ')
 
+  const username = firstname.substring(0, spaceIndex) + lastname
+
+  
   try {
     const userExists = await userAccounts.findOne({ where: { username } });
     if (userExists) throw new Error("Username already exists");

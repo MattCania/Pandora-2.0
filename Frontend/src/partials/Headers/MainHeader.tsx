@@ -221,10 +221,10 @@ export default function MainHeader({ pages }: MainHeaderProps) {
               <Tooltip title='Open settings'>
                 <IconButton
                   onClick={handleOpenUserMenu}
-                  sx={{ p: 0 }}
+                  sx={{ p: 0 }} 
                 >
                   <Avatar
-                    alt='Remy Sharp'
+                    alt={`${user.username}`}
                     src='/static/images/avatar/2.jpg'
                   />
                 </IconButton>

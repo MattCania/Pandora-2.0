@@ -57,6 +57,23 @@ const fetchProfile = async (req, res) => {
 		console.log(error.message)
 		res.status(500).json({error: error.message})
 	}
+}
+
+const editProfile = async () => {
+
+	const { 
+		firstName, middleName, lastName, birthday, address, currency, balance, incomeAmount, incomePeriod
+	 } = req.body
+
+
+	 try {
+		
+		const updateRes = userProfile.update({where: {userId}})
+
+	 } catch (error) {
+		console.error(error)
+		res.status(500).json({error: error.message})
+	 }
 
 }
 

@@ -81,8 +81,8 @@ export default function RegisterPage() {
     try {
       const result = await Requests("post", 'register', formData)
 
-      if (!result) throw new Error("Registration Error")
-      // navigate('/pandora/login')
+      if (result.status >= 400) throw new Error("Registration Error")
+      navigate('/pandora/login')
     }
     catch (error){
       console.error("Error: ", error)
