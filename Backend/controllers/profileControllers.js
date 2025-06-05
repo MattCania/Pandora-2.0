@@ -7,6 +7,7 @@ const fetchProfile = async (req, res) => {
 
 	try {
 		if (!userId) throw new Error ('User Id Null')
+		console.log(userId)
 		
 		const accountRes = await userAccounts.findOne({where: {user_id: userId}})
 

@@ -23,7 +23,6 @@ const register = async (req, res) => {
 
   const username = firstname.substring(0, spaceIndex) + lastname
 
-  
   try {
     const userExists = await userAccounts.findOne({ where: { username } });
     if (userExists) throw new Error("Username already exists");
